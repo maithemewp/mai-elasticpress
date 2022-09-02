@@ -215,6 +215,9 @@ final class Mai_Elasticpress {
 			'src'       => MAI_ELASTICPRESS_PLUGIN_URL . 'css/mai-elasticpress.css',
 			'ver'       => MAI_ELASTICPRESS_VERSION,
 			'in_footer' => true,
+			'condition' => function() {
+				return $this->has_feature( 'instant-results' );
+			},
 		];
 
 		return $styles;
@@ -239,7 +242,7 @@ final class Mai_Elasticpress {
 	 * @return array
 	 */
 	function edit_query( $query_args, $args ) {
-		if ( ! $this->should_run() ) {
+		if ( ! $this->has_feature( 'related_posts' ) ) {
 			return $query_arg;
 		}
 
@@ -267,18 +270,24 @@ final class Mai_Elasticpress {
 	function add_related_choice( $field ) {
 		$field['choices'][ 'ep_related' ] = __( 'Related (Elasticpress)', 'mai-elasticpress' );
 
+		if ( ! $this->has_feature( 'related_posts' ) ) {
+			$field['choices'][ 'ep_related' ] .= ' [' . __( 'Feature Disabled!', 'mai-elasticpress' ) . ']';
+		}
+
 		return $field;
 	}
 
 	/**
-	 * If plugin should run.
+	 * Checks if a feature is active.
 	 *
 	 * @since 0.1.0
 	 *
+	 * @param string $feature The feature to check.
+	 *
 	 * @return bool
 	 */
-	function should_run() {
-		return class_exists( 'ElasticPress\Feature\RelatedPosts\RelatedPosts' );
+	function has_feature( $feature ) {
+		return ElasticPress\Features::factory()->get_registered_feature( $feature )->is_active();
 	}
 }
 
@@ -297,7 +306,12 @@ final class Mai_Elasticpress {
  *
  * @return object|Mai_Elasticpress The one true Mai_Elasticpress Instance.
  */
+add_action( 'plugins_loaded', 'mai_elasticpress_plugin' );
 function mai_elasticpress_plugin() {
+	if ( ! class_exists( 'ElasticPress\Feature' ) ) {
+		return;
+	}
+
 	return Mai_Elasticpress::instance();
 }
 
