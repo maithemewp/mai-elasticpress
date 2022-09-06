@@ -4,7 +4,7 @@
  * Plugin Name:     Mai Elasticpress
  * Plugin URI:      https://bizbudding.com/
  * Description:     Elasticpress helper function for BizBudding/Mai Theme.
- * Version:         0.1.0
+ * Version:         0.2.0
  *
  * Author:          BizBudding
  * Author URI:      https://bizbudding.com
@@ -89,7 +89,7 @@ final class Mai_Elasticpress {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'MAI_ELASTICPRESS_VERSION' ) ) {
-			define( 'MAI_ELASTICPRESS_VERSION', '0.1.0' );
+			define( 'MAI_ELASTICPRESS_VERSION', '0.2.0' );
 		}
 
 		// Plugin Folder Path.
@@ -196,6 +196,8 @@ final class Mai_Elasticpress {
 		add_filter( 'ep_highlighting_class',                      [ $this, 'highlighting_class' ] );
 		add_filter( 'mai_post_grid_query_args',                   [ $this, 'edit_query' ], 10, 2 );
 		add_filter( 'acf/load_field/key=mai_grid_block_query_by', [ $this, 'add_related_choice' ] );
+		add_filter( 'comments_template_top_level_query_args',     [ $this, 'add_query_arg' ] );
+		add_filter( 'comments_template_query_args',               [ $this, 'add_query_arg' ] );
 	}
 
 	/**
@@ -275,6 +277,23 @@ final class Mai_Elasticpress {
 		}
 
 		return $field;
+	}
+
+	/**
+	 * Adds `ep_integrate` arg to the query.
+	 *
+	 * @since 0.2.0
+	 *
+	 * @return array
+	 */
+	function add_query_arg( $args ) {
+		if ( is_admin() ) {
+			return $args;
+		}
+
+		$args['ep_integrate'] = true;
+
+		return $args;
 	}
 
 	/**
