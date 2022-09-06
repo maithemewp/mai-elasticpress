@@ -194,10 +194,12 @@ final class Mai_Elasticpress {
 	function run() {
 		add_filter( 'mai_styles_config',                          [ $this, 'load_css' ] );
 		add_filter( 'ep_highlighting_class',                      [ $this, 'highlighting_class' ] );
-		add_filter( 'mai_post_grid_query_args',                   [ $this, 'edit_query' ], 10, 2 );
-		add_filter( 'acf/load_field/key=mai_grid_block_query_by', [ $this, 'add_related_choice' ] );
 		add_filter( 'comments_template_top_level_query_args',     [ $this, 'add_query_arg' ] );
 		add_filter( 'comments_template_query_args',               [ $this, 'add_query_arg' ] );
+
+		// Mai Theme v2.
+		add_filter( 'mai_post_grid_query_args',                   [ $this, 'edit_query' ], 10, 2 );
+		add_filter( 'acf/load_field/key=mai_grid_block_query_by', [ $this, 'add_related_choice' ] );
 	}
 
 	/**
@@ -234,6 +236,23 @@ final class Mai_Elasticpress {
 	 */
 	function highlighting_class( $class ) {
 		return '';
+	}
+
+	/**
+	 * Adds `ep_integrate` arg to the query.
+	 *
+	 * @since 0.2.0
+	 *
+	 * @return array
+	 */
+	function add_query_arg( $args ) {
+		if ( is_admin() ) {
+			return $args;
+		}
+
+		$args['ep_integrate'] = true;
+
+		return $args;
 	}
 
 	/**
@@ -277,23 +296,6 @@ final class Mai_Elasticpress {
 		}
 
 		return $field;
-	}
-
-	/**
-	 * Adds `ep_integrate` arg to the query.
-	 *
-	 * @since 0.2.0
-	 *
-	 * @return array
-	 */
-	function add_query_arg( $args ) {
-		if ( is_admin() ) {
-			return $args;
-		}
-
-		$args['ep_integrate'] = true;
-
-		return $args;
 	}
 
 	/**
