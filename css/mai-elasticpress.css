@@ -1,4 +1,3 @@
-
 .ep-search-modal {
 	--ep-search-alternate-background-color: var(--color-alt);
 }
@@ -111,10 +110,20 @@
 }
 
 .ep-search-modal .ep-search-panel {
+	margin-bottom: var(--spacing-lg);
 	border: var(--border);
 	border-radius: var(--border-radius);
 }
 
 .ep-search-modal .ep-search-sidebar-toggle {
 	margin-top: var(--spacing-lg);
+}
+
+.ep-search-modal .ep-search-options-list:not(:last-child) {
+	margin-bottom: var(--spacing-md);
+}
+
+.ep-search-modal .ep-search-options-list + .ep-search-small-button {
+	color: var(--color-link);
+	background: transparent;
 }
