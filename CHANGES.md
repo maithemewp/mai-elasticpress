@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.2 (9/21/22)
+* Fixed: Mispelled variable returned when featured not active.
+
 ## 0.2.1 (9/21/22)
 * Fixed: Minor CSS tweaks for instant results modal.
 
