@@ -4,7 +4,7 @@
  * Plugin Name:     Mai Elasticpress
  * Plugin URI:      https://bizbudding.com/
  * Description:     Elasticpress helper function for BizBudding/Mai Theme.
- * Version:         0.2.2
+ * Version:         0.2.3
  *
  * Author:          BizBudding
  * Author URI:      https://bizbudding.com
@@ -89,7 +89,7 @@ final class Mai_Elasticpress {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'MAI_ELASTICPRESS_VERSION' ) ) {
-			define( 'MAI_ELASTICPRESS_VERSION', '0.2.2' );
+			define( 'MAI_ELASTICPRESS_VERSION', '0.2.3' );
 		}
 
 		// Plugin Folder Path.
@@ -198,6 +198,11 @@ final class Mai_Elasticpress {
 		add_filter( 'comments_template_query_args',               [ $this, 'add_query_arg' ] );
 
 		// Mai Theme v2.
+		if ( ! class_exists( 'Mai_Engine ') ) {
+			return;
+		}
+
+		add_filter( 'ep_post_thumbnail_image_size',               [ $this, 'change_image_size' ] );
 		add_filter( 'mai_post_grid_query_args',                   [ $this, 'edit_query' ], 10, 2 );
 		add_filter( 'acf/load_field/key=mai_grid_block_query_by', [ $this, 'add_related_choice' ] );
 	}
@@ -253,6 +258,19 @@ final class Mai_Elasticpress {
 		$args['ep_integrate'] = true;
 
 		return $args;
+	}
+
+	/**
+	 * Changes image size to use Mai Theme size.
+	 *
+	 * @since 0.2.2
+	 *
+	 * @param string $size The existing image size. Defaults to 'thumbnail'.
+	 *
+	 * @return string
+	 */
+	function change_image_size( $size ) {
+		return 'landscape-md';
 	}
 
 	/**

@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.3 (9/21/22)
+* Changed: Use landscape image size for instant results.
+
 ## 0.2.2 (9/21/22)
 * Fixed: Mispelled variable returned when featured not active.
 
