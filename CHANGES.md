@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.4 (9/28/22)
+* Fixed: Updater not working correctly.
+
 ## 0.2.3 (9/21/22)
 * Changed: Use landscape image size for instant results.
 
