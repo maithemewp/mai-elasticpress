@@ -21,6 +21,10 @@
 	display: none !important;
 }
 
+.maiep-widget-area .widget:not(:last-child) {
+	margin-bottom: var(--spacing-lg);
+}
+
 .maiep-accordion {
 	text-align: start;
 }
