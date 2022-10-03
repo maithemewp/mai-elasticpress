@@ -21,8 +21,12 @@
 	display: none !important;
 }
 
-.maiep-widget-area .widget:not(:last-child) {
-	margin-bottom: var(--spacing-lg);
+.maiep-accordion .widget:not(:last-child) {
+	margin-bottom: var(--spacing-xl);
+}
+
+.maiep-accordion .widget:last-child {
+	margin-bottom: 0;
 }
 
 .maiep-accordion {
