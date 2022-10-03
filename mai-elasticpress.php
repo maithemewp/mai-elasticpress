@@ -3,7 +3,7 @@
 /**
  * Plugin Name:     Mai Elasticpress
  * Plugin URI:      https://bizbudding.com/
- * Description:     Elasticpress helper function for BizBudding/Mai Theme.
+ * Description:     Elasticpress helper plugin for BizBudding/Mai Theme.
  * Version:         0.3.0
  *
  * Author:          BizBudding
@@ -209,7 +209,7 @@ final class Mai_Elasticpress {
 
 		// Genesis.
 		add_action( 'after_setup_theme', [ $this, 'register_sidebar' ] );
-		add_action( 'genesis_before',    [ $this, 'swap_sidebar' ] );
+		add_action( 'genesis_before',    [ $this, 'display_sidebar' ], 12 );
 	}
 
 	/**
@@ -362,34 +362,49 @@ final class Mai_Elasticpress {
 	 *
 	 * @return void
 	 */
-	function swap_sidebar() {
+	function display_sidebar() {
 		if ( ! is_search() ) {
 			return;
+		}
+
+		ob_start();
+		genesis_widget_area( 'maiep-search-results',
+			[
+				'before' => '<aside class="widget-area maiep-widget-area">',
+				'after'  => '</aside>',
+			]
+		);
+		$widget_area = ob_get_clean();
+		$hook        = 'genesis_before_loop';
+
+		if ( function_exists( 'mai_has_page_header' ) && mai_has_page_header() ) {
+			$hook = 'mai_page_header';
+		}
+
+		// Display mobile filters.
+		if ( $widget_area && function_exists( 'mai_get_accordion' ) && function_exists( 'mai_get_accordion_item' ) ) {
+			add_action( $hook, function() use ( $widget_area ) {
+				printf( '<style>%s</style>', file_get_contents( MAI_ELASTICPRESS_PLUGIN_DIR . '/css/maiep-search-results.css' ) );
+				echo mai_get_accordion(
+					[
+						'class'   => 'maiep-accordion',
+						'content' => mai_get_accordion_item(
+							[
+								'title'   => wp_kses_post( apply_filters( 'maiep_filter_text', __( 'Filter Results', 'mai-elasticpress' ) ) ),
+								'content' => $widget_area,
+							]
+						),
+					]
+				);
+			}, 12 );
 		}
 
 		// Remove default sidebar.
 		remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
 
 		// Add our new sidebar, with inline styles.
-		add_action( 'genesis_sidebar', function() {
-			?>
-			<style>
-				.widget_ep-facet .searchable .inner,
-				.wp-block-elasticpress-facet .searchable .inner {
-					max-height: unset !important;
-					overflow: auto !important;
-				}
-				.widget_ep-facet input[type="search"],
-				.wp-block-elasticpress-facet input[type="search"],
-				.widget_ep-facet .empty-term,
-				.wp-block-elasticpress-facet .empty-term,
-				.widget_ep-facet .term.level-0:not(.selected) ~ .term:not(.level-0),
-				.wp-block-elasticpress-facet .term.level-0:not(.selected) ~ .term:not(.level-0) {
-					display: none !important;
-				}
-			</style>
-			<?php
-			dynamic_sidebar( 'maiep-search-results' );
+		add_action( 'genesis_sidebar', function() use ( $widget_area ) {
+			echo $widget_area;
 		});
 	}
 }

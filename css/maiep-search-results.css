@@ -1,0 +1,40 @@
+.widget_ep-facet .searchable .inner,
+.wp-block-elasticpress-facet .searchable .inner {
+	max-height: unset !important;
+	overflow: auto !important;
+}
+
+.widget_ep-facet .term,
+.wp-block-elasticpress-facet .term {
+	display: flex;
+	gap: 4px;
+	align-items: center;
+	font-size: 1em;
+}
+
+.widget_ep-facet input[type="search"],
+.wp-block-elasticpress-facet input[type="search"],
+.widget_ep-facet .empty-term,
+.wp-block-elasticpress-facet .empty-term,
+.widget_ep-facet .term.level-0:not(.selected) ~ .term:not(.level-0),
+.wp-block-elasticpress-facet .term.level-0:not(.selected) ~ .term:not(.level-0) {
+	display: none !important;
+}
+
+.maiep-accordion {
+	text-align: start;
+}
+
+@media only screen and (max-width: 999px) {
+
+	.sidebar .maiep-widget-area {
+		display: none;
+	}
+}
+
+@media only screen and (min-width: 1000px) {
+
+	.maiep-accordion {
+		display: none;
+	}
+}
