@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.4.0 (10/3/22)
+* Added: Mobile widget area for filters.
+
 ## 0.3.0 (10/3/22)
 * Added: New custom search results sidebar
 
