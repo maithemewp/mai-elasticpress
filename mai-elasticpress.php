@@ -350,7 +350,7 @@ final class Mai_Elasticpress {
 			[
 				'id'          => 'maiep-search-results',
 				'name'        => __( 'Search Results (Mai Elasticpress)', 'mai-elasticpress' ),
-				'description' => __( 'This is the widget that appears on search results.', 'mai-elasticpress' ),
+				'description' => __( 'This is the widget area that appears on search results.', 'mai-elasticpress' ),
 			]
 		);
 	}
