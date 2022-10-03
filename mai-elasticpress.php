@@ -375,15 +375,10 @@ final class Mai_Elasticpress {
 			]
 		);
 		$widget_area = ob_get_clean();
-		$hook        = 'genesis_before_loop';
-
-		if ( function_exists( 'mai_has_page_header' ) && mai_has_page_header() ) {
-			$hook = 'mai_page_header';
-		}
 
 		// Display mobile filters.
 		if ( $widget_area && function_exists( 'mai_get_accordion' ) && function_exists( 'mai_get_accordion_item' ) ) {
-			add_action( $hook, function() use ( $widget_area ) {
+			add_action( 'genesis_before_loop', function() use ( $widget_area ) {
 				printf( '<style>%s</style>', file_get_contents( MAI_ELASTICPRESS_PLUGIN_DIR . '/css/maiep-search-results.css' ) );
 				echo mai_get_accordion(
 					[
