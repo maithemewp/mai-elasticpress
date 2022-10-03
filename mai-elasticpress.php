@@ -4,7 +4,7 @@
  * Plugin Name:     Mai Elasticpress
  * Plugin URI:      https://bizbudding.com/
  * Description:     Elasticpress helper function for BizBudding/Mai Theme.
- * Version:         0.2.4
+ * Version:         0.3.0
  *
  * Author:          BizBudding
  * Author URI:      https://bizbudding.com
@@ -89,7 +89,7 @@ final class Mai_Elasticpress {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'MAI_ELASTICPRESS_VERSION' ) ) {
-			define( 'MAI_ELASTICPRESS_VERSION', '0.2.4' );
+			define( 'MAI_ELASTICPRESS_VERSION', '0.3.0' );
 		}
 
 		// Plugin Folder Path.
@@ -198,13 +198,15 @@ final class Mai_Elasticpress {
 		add_filter( 'comments_template_query_args',               [ $this, 'add_query_arg' ] );
 
 		// Mai Theme v2.
-		if ( ! class_exists( 'Mai_Engine ') ) {
-			return;
+		if ( class_exists( 'Mai_Engine ') ) {
+			add_filter( 'ep_post_thumbnail_image_size',               [ $this, 'change_image_size' ] );
+			add_filter( 'mai_post_grid_query_args',                   [ $this, 'edit_query' ], 10, 2 );
+			add_filter( 'acf/load_field/key=mai_grid_block_query_by', [ $this, 'add_related_choice' ] );
 		}
 
-		add_filter( 'ep_post_thumbnail_image_size',               [ $this, 'change_image_size' ] );
-		add_filter( 'mai_post_grid_query_args',                   [ $this, 'edit_query' ], 10, 2 );
-		add_filter( 'acf/load_field/key=mai_grid_block_query_by', [ $this, 'add_related_choice' ] );
+		// Genesis.
+		add_action( 'after_setup_theme', [ $this, 'register_sidebar' ] );
+		add_action( 'genesis_before',    [ $this, 'swap_sidebar' ] );
 	}
 
 	/**
@@ -221,7 +223,7 @@ final class Mai_Elasticpress {
 	function load_css( $styles ) {
 		$styles['elasticpress'] = [
 			'location'  => 'public',
-			'src'       => MAI_ELASTICPRESS_PLUGIN_URL . 'css/mai-elasticpress.css',
+			'src'       => MAI_ELASTICPRESS_PLUGIN_URL . 'css/maiep-instant-results.css',
 			'ver'       => MAI_ELASTICPRESS_VERSION,
 			'in_footer' => true,
 			'condition' => function() {
@@ -327,6 +329,65 @@ final class Mai_Elasticpress {
 	 */
 	function has_feature( $feature ) {
 		return ElasticPress\Features::factory()->get_registered_feature( $feature )->is_active();
+	}
+
+	/**
+	 * Registers widget area.
+	 *
+	 * @since 0.3.0
+	 *
+	 * @return void
+	 */
+	function register_sidebar() {
+		if ( ! function_exists( 'genesis_register_sidebar' ) ) {
+			return;
+		}
+
+		genesis_register_sidebar(
+			[
+				'id'          => 'maiep-search-results',
+				'name'        => __( 'Search Results (Mai Elasticpress)', 'mai-elasticpress' ),
+				'description' => __( 'This is the widget that appears on search results.', 'mai-elasticpress' ),
+			]
+		);
+	}
+
+	/**
+	 * Swaps search results sidebar for custom sidebar.
+	 *
+	 * @since 0.3.0
+	 *
+	 * @return void
+	 */
+	function swap_sidebar() {
+		if ( ! is_search() ) {
+			return;
+		}
+
+		// Remove default sidebar.
+		remove_action( 'genesis_sidebar', 'genesis_do_sidebar' );
+
+		// Add our new sidebar, with inline styles.
+		add_action( 'genesis_sidebar', function() {
+			?>
+			<style>
+				.widget_ep-facet .searchable .inner,
+				.wp-block-elasticpress-facet .searchable .inner {
+					max-height: unset !important;
+					overflow: auto !important;
+				}
+				.widget_ep-facet input[type="search"],
+				.wp-block-elasticpress-facet input[type="search"],
+				.widget_ep-facet .empty-term,
+				.wp-block-elasticpress-facet .empty-term,
+				.widget_ep-facet .term.level-0:not(.selected) ~ .term:not(.level-0),
+				.wp-block-elasticpress-facet .term.level-0:not(.selected) ~ .term:not(.level-0) {
+					display: none !important;
+				}
+			</style>
+			<?php
+			dynamic_sidebar( 'maiep-search-results' );
+		});
 	}
 }
 

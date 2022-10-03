@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.3.0 (10/3/22)
+* Added: New custom search results sidebar
+
 ## 0.2.4 (9/28/22)
 * Fixed: Updater not working correctly.
 
