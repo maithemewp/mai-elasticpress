@@ -21,16 +21,18 @@
 	display: none !important;
 }
 
+
+.maiep-accordion {
+	margin-bottom: var(--spacing-xl, 32px);
+	text-align: start;
+}
+
 .maiep-accordion .widget:not(:last-child) {
-	margin-bottom: var(--spacing-xl);
+	margin-bottom: var(--spacing-xl, 32px);
 }
 
 .maiep-accordion .widget:last-child {
 	margin-bottom: 0;
-}
-
-.maiep-accordion {
-	text-align: start;
 }
 
 @media only screen and (max-width: 999px) {
