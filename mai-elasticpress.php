@@ -168,6 +168,9 @@ final class Mai_Elasticpress {
 		// Setup the updater.
 		$updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/maithemewp/mai-elasticpress/', __FILE__, 'mai-elasticpress' );
 
+		// Set the branch that contains the stable release.
+		$myUpdateChecker->setBranch( 'main' );
+
 		// Maybe set github api token.
 		if ( defined( 'MAI_GITHUB_API_TOKEN' ) ) {
 			$updater->setAuthentication( MAI_GITHUB_API_TOKEN );
