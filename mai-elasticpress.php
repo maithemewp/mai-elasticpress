@@ -4,7 +4,7 @@
  * Plugin Name:     Mai Elasticpress
  * Plugin URI:      https://bizbudding.com/
  * Description:     Elasticpress helper plugin for BizBudding/Mai Theme.
- * Version:         0.4.0
+ * Version:         0.5.0
  *
  * Author:          BizBudding
  * Author URI:      https://bizbudding.com
@@ -89,7 +89,7 @@ final class Mai_Elasticpress {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'MAI_ELASTICPRESS_VERSION' ) ) {
-			define( 'MAI_ELASTICPRESS_VERSION', '0.4.0' );
+			define( 'MAI_ELASTICPRESS_VERSION', '0.5.0' );
 		}
 
 		// Plugin Folder Path.
@@ -197,15 +197,14 @@ final class Mai_Elasticpress {
 	function run() {
 		add_filter( 'mai_styles_config',                          [ $this, 'load_css' ] );
 		add_filter( 'ep_highlighting_class',                      [ $this, 'highlighting_class' ] );
+		add_filter( 'ep_related_posts_max_query_terms',           [ $this, 'related_posts_max_query_terms' ] );
 		add_filter( 'comments_template_top_level_query_args',     [ $this, 'add_query_arg' ] );
 		add_filter( 'comments_template_query_args',               [ $this, 'add_query_arg' ] );
 
 		// Mai Theme v2.
-		if ( class_exists( 'Mai_Engine ') ) {
-			add_filter( 'ep_post_thumbnail_image_size',               [ $this, 'change_image_size' ] );
-			add_filter( 'mai_post_grid_query_args',                   [ $this, 'edit_query' ], 10, 2 );
-			add_filter( 'acf/load_field/key=mai_grid_block_query_by', [ $this, 'add_related_choice' ] );
-		}
+		add_filter( 'ep_post_thumbnail_image_size',               [ $this, 'change_image_size' ] );
+		add_filter( 'mai_post_grid_query_args',                   [ $this, 'edit_query' ], 10, 2 );
+		add_filter( 'acf/load_field/key=mai_grid_block_query_by', [ $this, 'add_related_choice' ] );
 
 		// Genesis.
 		add_action( 'after_setup_theme', [ $this, 'register_sidebar' ] );
@@ -249,6 +248,19 @@ final class Mai_Elasticpress {
 	}
 
 	/**
+	 * Bumps up the max terms for related posts.
+	 *
+	 * @since 0.5.0
+	 *
+	 * @param int $terms The number of terms to query.
+	 *
+	 * @return int
+	 */
+	function related_posts_max_query_terms( $terms ) {
+		return 2000;
+	}
+
+	/**
 	 * Adds `ep_integrate` arg to the query.
 	 *
 	 * @since 0.2.0
@@ -275,7 +287,11 @@ final class Mai_Elasticpress {
 	 * @return string
 	 */
 	function change_image_size( $size ) {
-		return 'landscape-md';
+		if ( class_exists( 'Mai_Engine ') ) {
+			return 'landscape-md';
+		}
+
+		return $size;
 	}
 
 	/**
@@ -331,7 +347,8 @@ final class Mai_Elasticpress {
 	 * @return bool
 	 */
 	function has_feature( $feature ) {
-		return ElasticPress\Features::factory()->get_registered_feature( $feature )->is_active();
+		$class = ElasticPress\Features::factory()->get_registered_feature( $feature );
+		return $class && $class->is_active();
 	}
 
 	/**

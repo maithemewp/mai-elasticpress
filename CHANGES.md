@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0 (10/7/22)
+* Changed: Bumped max query terms for related posts from 12 to 2000.
+* Fixed: Mai_Engine class check running before Mai Engine is actually running.
+* Fixed: Feature check breaks when a feature is off or non-existent.
+
 ## 0.4.0 (10/3/22)
 * Added: Mobile widget area for filters.
 
