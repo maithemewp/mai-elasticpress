@@ -4,7 +4,7 @@
  * Plugin Name:     Mai Elasticpress
  * Plugin URI:      https://bizbudding.com/
  * Description:     Elasticpress helper plugin for BizBudding/Mai Theme.
- * Version:         0.5.0
+ * Version:         0.6.0
  *
  * Author:          BizBudding
  * Author URI:      https://bizbudding.com
@@ -89,7 +89,7 @@ final class Mai_Elasticpress {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'MAI_ELASTICPRESS_VERSION' ) ) {
-			define( 'MAI_ELASTICPRESS_VERSION', '0.5.0' );
+			define( 'MAI_ELASTICPRESS_VERSION', '0.6.0' );
 		}
 
 		// Plugin Folder Path.
@@ -197,7 +197,7 @@ final class Mai_Elasticpress {
 	function run() {
 		add_filter( 'mai_styles_config',                               [ $this, 'load_css' ] );
 		add_filter( 'ep_highlighting_class',                           [ $this, 'highlighting_class' ] );
-		add_filter( 'ep_related_posts_max_query_terms',                [ $this, 'related_posts_max_query_terms' ] );
+		// add_filter( 'ep_related_posts_max_query_terms',                [ $this, 'related_posts_max_query_terms' ] );
 		add_filter( 'comments_template_top_level_query_args',          [ $this, 'add_query_arg' ] );
 		add_filter( 'comments_template_query_args',                    [ $this, 'add_query_arg' ] );
 
@@ -345,7 +345,7 @@ final class Mai_Elasticpress {
 	/**
 	 * Hides "Order" field if querying by Related.
 	 *
-	 * @since TBD
+	 * @since 0.6.0
 	 *
 	 * @param array $field The existing field array.
 	 *
@@ -364,7 +364,7 @@ final class Mai_Elasticpress {
 	/**
 	 * Hides "Order" field if querying by Related.
 	 *
-	 * @since TBD
+	 * @since 0.6.0
 	 *
 	 * @param array $field The existing field array.
 	 *

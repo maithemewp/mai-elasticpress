@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.0 (11/8/22)
+* Changed: Disable max query terms filter since that wasn't the reason related posts weren't working correctly.
+* Changed: Hide order by and order settings in Mai Post Grid if querying for related posts.
+* Fixed: Related posts now work as intended.
+
 ## 0.5.0 (10/7/22)
 * Changed: Bumped max query terms for related posts from 12 to 2000.
 * Fixed: Mai_Engine class check running before Mai Engine is actually running.
