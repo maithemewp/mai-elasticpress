@@ -195,16 +195,18 @@ final class Mai_Elasticpress {
 	 * @return
 	 */
 	function run() {
-		add_filter( 'mai_styles_config',                          [ $this, 'load_css' ] );
-		add_filter( 'ep_highlighting_class',                      [ $this, 'highlighting_class' ] );
-		add_filter( 'ep_related_posts_max_query_terms',           [ $this, 'related_posts_max_query_terms' ] );
-		add_filter( 'comments_template_top_level_query_args',     [ $this, 'add_query_arg' ] );
-		add_filter( 'comments_template_query_args',               [ $this, 'add_query_arg' ] );
+		add_filter( 'mai_styles_config',                               [ $this, 'load_css' ] );
+		add_filter( 'ep_highlighting_class',                           [ $this, 'highlighting_class' ] );
+		add_filter( 'ep_related_posts_max_query_terms',                [ $this, 'related_posts_max_query_terms' ] );
+		add_filter( 'comments_template_top_level_query_args',          [ $this, 'add_query_arg' ] );
+		add_filter( 'comments_template_query_args',                    [ $this, 'add_query_arg' ] );
 
 		// Mai Theme v2.
-		add_filter( 'ep_post_thumbnail_image_size',               [ $this, 'change_image_size' ] );
-		add_filter( 'mai_post_grid_query_args',                   [ $this, 'edit_query' ], 10, 2 );
-		add_filter( 'acf/load_field/key=mai_grid_block_query_by', [ $this, 'add_related_choice' ] );
+		add_filter( 'ep_post_thumbnail_image_size',                    [ $this, 'change_image_size' ] );
+		add_filter( 'mai_post_grid_query_args',                        [ $this, 'edit_query' ], 10, 2 );
+		add_filter( 'acf/load_field/key=mai_grid_block_query_by',      [ $this, 'add_related_choice' ] );
+		add_filter( 'acf/load_field/key=mai_grid_block_posts_orderby', [ $this, 'hide_orderby_field' ] );
+		add_filter( 'acf/load_field/key=mai_grid_block_posts_order',   [ $this, 'hide_order_field' ] );
 
 		// Genesis.
 		add_action( 'after_setup_theme', [ $this, 'register_sidebar' ] );
@@ -313,6 +315,8 @@ final class Mai_Elasticpress {
 		if ( isset( $args['query_by'] ) && $args['query_by'] && 'ep_related' === $args['query_by'] ) {
 			$query_args['ep_integrate'] = true;
 			$query_args['more_like']    = get_the_ID();
+			$query_args['orderby']      = 'relevance';
+			$query_args['order']        = 'DESC';
 		}
 
 		return $query_args;
@@ -333,6 +337,44 @@ final class Mai_Elasticpress {
 		if ( ! $this->has_feature( 'related_posts' ) ) {
 			$field['choices'][ 'ep_related' ] .= ' [' . __( 'Feature Disabled!', 'mai-elasticpress' ) . ']';
 		}
+
+		return $field;
+	}
+
+	/**
+	 * Hides "Order" field if querying by Related.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $field The existing field array.
+	 *
+	 * @return array
+	 */
+	function hide_orderby_field( $field ) {
+		$field['conditional_logic'][] = [
+			'field'    => 'mai_grid_block_query_by',
+			'operator' => '!=',
+			'value'    => 'ep_related',
+		];
+
+		return $field;
+	}
+
+	/**
+	 * Hides "Order" field if querying by Related.
+	 *
+	 * @since TBD
+	 *
+	 * @param array $field The existing field array.
+	 *
+	 * @return array
+	 */
+	function hide_order_field( $field ) {
+		$field['conditional_logic'][] = [
+			'field'    => 'mai_grid_block_query_by',
+			'operator' => '!=',
+			'value'    => 'ep_related',
+		];
 
 		return $field;
 	}
