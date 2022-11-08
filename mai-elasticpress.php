@@ -308,7 +308,8 @@ final class Mai_Elasticpress {
 			return $query_args;
 		}
 
-		if ( ! isset( $args['type'] ) || 'post' !== $args['type'] ) {
+		// TODO: Make sure post type is indexed.
+		if ( ! isset( $args['type'] )  ) {
 			return $query_args;
 		}
 
