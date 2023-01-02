@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.6.1 (1/2/23)
+* Fixed: Only show serach results sidebar if it has content.
+
 ## 0.6.0 (11/8/22)
 * Changed: Disable max query terms filter since that wasn't the reason related posts weren't working correctly.
 * Changed: Hide order by and order settings in Mai Post Grid if querying for related posts.
