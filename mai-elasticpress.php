@@ -427,6 +427,10 @@ final class Mai_Elasticpress {
 			return;
 		}
 
+		if ( ! is_active_sidebar( 'maiep-search-results' ) ) {
+			return;
+		}
+
 		ob_start();
 		genesis_widget_area( 'maiep-search-results',
 			[
