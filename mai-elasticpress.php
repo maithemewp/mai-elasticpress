@@ -4,7 +4,7 @@
  * Plugin Name:     Mai Elasticpress
  * Plugin URI:      https://bizbudding.com/
  * Description:     Elasticpress helper plugin for BizBudding/Mai Theme.
- * Version:         0.6.1
+ * Version:         0.7.0
  *
  * Author:          BizBudding
  * Author URI:      https://bizbudding.com
@@ -13,18 +13,28 @@
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+// Must be at the top of the file.
+use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+
 /**
  * Main Mai_Elasticpress Class.
  *
  * @since 0.1.0
  */
 final class Mai_Elasticpress {
-
 	/**
-	 * @var   Mai_Elasticpress The one true Mai_Elasticpress
+	 * @var Mai_Elasticpress The one true Mai_Elasticpress
+	 *
 	 * @since 0.1.0
 	 */
 	private static $instance;
+
+	/**
+	 * Additional taxonomies to sync.
+	 *
+	 * @var array
+	 */
+	protected $taxonomies = [];
 
 	/**
 	 * Main Mai_Elasticpress Instance.
@@ -89,18 +99,13 @@ final class Mai_Elasticpress {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'MAI_ELASTICPRESS_VERSION' ) ) {
-			define( 'MAI_ELASTICPRESS_VERSION', '0.6.1' );
+			define( 'MAI_ELASTICPRESS_VERSION', '0.7.0' );
 		}
 
 		// Plugin Folder Path.
 		if ( ! defined( 'MAI_ELASTICPRESS_PLUGIN_DIR' ) ) {
 			define( 'MAI_ELASTICPRESS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 		}
-
-		// Plugin Includes Path.
-		// if ( ! defined( 'MAI_ELASTICPRESS_INCLUDES_DIR' ) ) {
-		// 	define( 'MAI_ELASTICPRESS_INCLUDES_DIR', MAI_ELASTICPRESS_PLUGIN_DIR . 'includes/' );
-		// }
 
 		// Plugin Folder URL.
 		if ( ! defined( 'MAI_ELASTICPRESS_PLUGIN_URL' ) ) {
@@ -128,8 +133,8 @@ final class Mai_Elasticpress {
 	private function includes() {
 		// Include vendor libraries.
 		require_once __DIR__ . '/vendor/autoload.php';
-		// Includes.
-		// foreach ( glob( MAI_ELASTICPRESS_INCLUDES_DIR . '*.php' ) as $file ) { include $file; }
+		// Classes.
+		// foreach ( glob( MAI_ELASTICPRESS_PLUGIN_DIR . 'classes/*.php' ) as $file ) { include $file; }
 	}
 
 	/**
@@ -141,6 +146,7 @@ final class Mai_Elasticpress {
 	public function hooks() {
 		add_action( 'plugins_loaded', [ $this, 'updater' ] );
 		add_action( 'plugins_loaded', [ $this, 'run' ] );
+		add_action( 'init',           [ $this, 'init' ], 99 );
 	}
 
 	/**
@@ -155,18 +161,13 @@ final class Mai_Elasticpress {
 	 * @return void
 	 */
 	public function updater() {
-		// Bail if current user cannot manage plugins.
-		if ( ! current_user_can( 'install_plugins' ) ) {
-			return;
-		}
-
 		// Bail if plugin updater is not loaded.
-		if ( ! class_exists( 'Puc_v4_Factory' ) ) {
+		if ( ! class_exists( 'YahnisElsts\PluginUpdateChecker\v5\PucFactory' ) ) {
 			return;
 		}
 
 		// Setup the updater.
-		$updater = Puc_v4_Factory::buildUpdateChecker( 'https://github.com/maithemewp/mai-elasticpress/', __FILE__, 'mai-elasticpress' );
+		$updater = PucFactory::buildUpdateChecker( 'https://github.com/maithemewp/mai-elasticpress/', __FILE__, 'mai-elasticpress' );
 
 		// Set the branch that contains the stable release.
 		$updater->setBranch( 'main' );
@@ -466,24 +467,61 @@ final class Mai_Elasticpress {
 			echo $widget_area;
 		});
 	}
+
+	/**
+	 * Adds available taxonomies for sync.
+	 *
+	 * @since 0.7.0
+	 *
+	 * @return void
+	 */
+	function init() {
+		$taxos = [
+			'mai_display',  // Mai Display Taxonomy.
+			'favorite_cat', // Mai Favorites.
+		];
+
+		foreach ( $taxos as $taxo ) {
+			if ( ! taxonomy_exists( $taxo ) ) {
+				continue;
+			}
+
+			$this->taxonomies[] = $taxo;
+		}
+
+		if ( ! $this->taxonomies ) {
+			return;
+		}
+
+		// Run filter.
+		add_filter( 'ep_sync_taxonomies', [ $this, 'add_taxonomies' ] );
+	}
+
+	/**
+	 * Adds taxonomies to Elasticpress sync.
+	 *
+	 * @since 0.7.0
+	 *
+	 * @param array $taxonomies
+	 *
+	 * @return array
+	 */
+	function add_taxonomies( $taxonomies ) {
+		return array_unique( array_merge( $taxonomies, $this->taxonomies ) );
+	}
 }
 
+add_action( 'plugins_loaded', 'mai_elasticpress_plugin' );
 /**
  * The main function for that returns Mai_Elasticpress
  *
  * The main function responsible for returning the one true Mai_Elasticpress
  * Instance to functions everywhere.
  *
- * Use this function like you would a global variable, except without needing
- * to declare the global.
- *
- * Example: <?php $plugin = Mai_Elasticpress(); ?>
- *
  * @since 0.1.0
  *
  * @return object|Mai_Elasticpress The one true Mai_Elasticpress Instance.
  */
-add_action( 'plugins_loaded', 'mai_elasticpress_plugin' );
 function mai_elasticpress_plugin() {
 	if ( ! class_exists( 'ElasticPress\Feature' ) ) {
 		return;

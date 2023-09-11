@@ -1,7 +1,10 @@
 # Changelog
 
+## 0.7.0 (9/11/23)
+* Added: Compatibility with WP_Query's that use Mai Display Taxonomy or Mai Favorites (Category) taxonomies in the query.
+
 ## 0.6.1 (1/2/23)
-* Fixed: Only show serach results sidebar if it has content.
+* Fixed: Check if search results sidebar has content before swapping/showing.
 
 ## 0.6.0 (11/8/22)
 * Changed: Disable max query terms filter since that wasn't the reason related posts weren't working correctly.
