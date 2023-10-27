@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.7.1 (10/27/23)
+* Fixed: Compatibility with Mai Publisher for search results sidebar.
+
 ## 0.7.0 (9/11/23)
 * Added: Compatibility with WP_Query's that use Mai Display Taxonomy or Mai Favorites (Category) taxonomies in the query.
 
