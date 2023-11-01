@@ -507,6 +507,10 @@ final class Mai_Elasticpress {
 	 * @return array
 	 */
 	function add_taxonomies( $taxonomies ) {
+		if ( ! $this->taxonomies ) {
+			return $taxonomies;
+		}
+
 		foreach ( $this->$taxonomies as $taxo ) {
 			$taxonomies[] = $taxo;
 		}
