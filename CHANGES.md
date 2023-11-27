@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.7.2 (11/27/23)
+* Changed: Update the updater.
+
 ## 0.7.1 (10/27/23)
 * Fixed: Compatibility with Mai Publisher for search results sidebar.
 
