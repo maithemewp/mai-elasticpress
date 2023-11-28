@@ -4,7 +4,7 @@
  * Plugin Name:     Mai Elasticpress
  * Plugin URI:      https://bizbudding.com/
  * Description:     Elasticpress helper plugin for BizBudding/Mai Theme.
- * Version:         0.7.2
+ * Version:         0.7.3
  *
  * Author:          BizBudding
  * Author URI:      https://bizbudding.com
@@ -99,7 +99,7 @@ final class Mai_Elasticpress {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'MAI_ELASTICPRESS_VERSION' ) ) {
-			define( 'MAI_ELASTICPRESS_VERSION', '0.7.2' );
+			define( 'MAI_ELASTICPRESS_VERSION', '0.7.3' );
 		}
 
 		// Plugin Folder Path.

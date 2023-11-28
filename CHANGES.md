@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.7.3 (11/28/23)
+* Fixed: PHP error with misspelled property name in foreach loop.
+
 ## 0.7.2 (11/27/23)
 * Changed: Update the updater.
 
