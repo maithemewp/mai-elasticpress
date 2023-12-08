@@ -34,7 +34,8 @@ class Mai_Elasticpress_Autosuggest_Endpoint {
 	 * @return void
 	 */
 	function hooks() {
-		add_action( 'rest_api_init', [ $this, 'register_endpoint' ] );
+		add_action( 'rest_api_init',   [ $this, 'register_endpoint' ] );
+		add_action( 'wp_print_styles', [ $this, 'dequeue' ], 999 );
 	}
 
 	/**
@@ -79,5 +80,16 @@ class Mai_Elasticpress_Autosuggest_Endpoint {
 		] );
 
 		return $response;
+	}
+
+	/**
+	 * Dequeue styles.
+	 *
+	 * @since 0.8.0
+	 *
+	 * @return void
+	 */
+	function dequeue() {
+		wp_dequeue_style( 'elasticpress-autosuggest' );
 	}
 }
