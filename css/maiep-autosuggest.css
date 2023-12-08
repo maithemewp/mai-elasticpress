@@ -1,0 +1,6 @@
+.autosuggest-list {
+	font-family: var(--heading-font-family, inherit);
+	font-weight: var(--heading-font-weight, inherit);
+	font-size: var(--font-size-md, 20px);
+	line-height: var(--heading-line-height, 1.1);
+}

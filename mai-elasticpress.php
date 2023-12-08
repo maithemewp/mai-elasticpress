@@ -230,13 +230,23 @@ final class Mai_Elasticpress {
 	 * @return array
 	 */
 	function load_css( $styles ) {
-		$styles['elasticpress'] = [
+		$styles['elasticpress-instant-results'] = [
 			'location'  => 'public',
 			'src'       => MAI_ELASTICPRESS_PLUGIN_URL . 'css/maiep-instant-results.css',
 			'ver'       => MAI_ELASTICPRESS_VERSION,
 			'in_footer' => true,
 			'condition' => function() {
 				return $this->has_feature( 'instant-results' );
+			},
+		];
+
+		$styles['elasticpress-autosuggest'] = [
+			'location'  => 'public',
+			'src'       => MAI_ELASTICPRESS_PLUGIN_URL . 'css/maiep-autosuggest.css',
+			'ver'       => MAI_ELASTICPRESS_VERSION,
+			'in_footer' => true,
+			'condition' => function() {
+				return $this->has_feature( 'autosuggest' );
 			},
 		];
 
