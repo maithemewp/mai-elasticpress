@@ -7,7 +7,7 @@
 	display: none;
 	width: 100%;
 	position: absolute;
-	top: calc(100% + var(--spacing-xs));
+	top: 100%;
 	left: 0;
 	background: var(--color-white, #fff);
 	border: var(--border);
