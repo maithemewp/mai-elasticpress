@@ -4,3 +4,7 @@
 	font-size: var(--font-size-md, 20px);
 	line-height: var(--heading-line-height, 1.1);
 }
+
+.autosuggest-option {
+	margin-bottom: var(--spacing-sm, 16px);
+}
