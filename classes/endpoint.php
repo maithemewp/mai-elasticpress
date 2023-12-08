@@ -40,7 +40,7 @@ class Mai_Elasticpress_Autosuggest_Endpoint {
 	/**
 	 * Register Elasticpress Autosuggest Endpoint.
 	 * You have to specify via Elasticpress settings or `EP_AUTOSUGGEST_ENDPOINT` constant like this:
-	 * @link https://yourdomain.com/wp-json/'mai-elasticpress/autosuggest/
+	 * @link https://yourdomain.com/wp-json/mai-elasticpress/autosuggest/
 	 *
 	 * @since 0.8.0
 	 *
