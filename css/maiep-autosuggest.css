@@ -2,9 +2,9 @@
 	font-family: var(--heading-font-family, inherit);
 	font-weight: var(--heading-font-weight, inherit);
 	font-size: var(--font-size-md, 20px);
-	line-height: var(--heading-line-height, 1.1);
+	line-height: var(--heading-line-height, 1.25);
 }
 
-.autosuggest-option {
-	margin-bottom: var(--spacing-sm, 16px);
+.autosuggest-link {
+	margin-bottom: var(--spacing-xxs, 12px);
 }

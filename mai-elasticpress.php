@@ -230,10 +230,13 @@ final class Mai_Elasticpress {
 	 * @return array
 	 */
 	function load_css( $styles ) {
+		$instant     = 'css/maiep-instant-results.css';
+		$autosuggest = 'css/maiep-autosuggest.css';
+
 		$styles['elasticpress-instant-results'] = [
 			'location'  => 'public',
-			'src'       => MAI_ELASTICPRESS_PLUGIN_URL . 'css/maiep-instant-results.css',
-			'ver'       => MAI_ELASTICPRESS_VERSION,
+			'src'       => MAI_ELASTICPRESS_PLUGIN_URL . $instant,
+			'ver'       => MAI_ELASTICPRESS_VERSION . '.' . date( 'njYHi', filemtime( MAI_ELASTICPRESS_PLUGIN_DIR . $instant ) ),
 			'in_footer' => true,
 			'condition' => function() {
 				return $this->has_feature( 'instant-results' );
@@ -242,8 +245,8 @@ final class Mai_Elasticpress {
 
 		$styles['elasticpress-autosuggest'] = [
 			'location'  => 'public',
-			'src'       => MAI_ELASTICPRESS_PLUGIN_URL . 'css/maiep-autosuggest.css',
-			'ver'       => MAI_ELASTICPRESS_VERSION,
+			'src'       => MAI_ELASTICPRESS_PLUGIN_URL . $autosuggest,
+			'ver'       => MAI_ELASTICPRESS_VERSION . '.' . date( 'njYHi', filemtime( MAI_ELASTICPRESS_PLUGIN_DIR . $autosuggest ) ),
 			'in_footer' => true,
 			'condition' => function() {
 				return $this->has_feature( 'autosuggest' );
