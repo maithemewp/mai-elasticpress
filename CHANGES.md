@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.0 (TBD)
+* Added: Custom endpoint for Autosuggest feature.
+
 ## 0.7.3 (11/28/23)
 * Fixed: PHP error with misspelled property name in foreach loop.
 

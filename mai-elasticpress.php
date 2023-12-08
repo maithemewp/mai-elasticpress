@@ -133,8 +133,9 @@ final class Mai_Elasticpress {
 	private function includes() {
 		// Include vendor libraries.
 		require_once __DIR__ . '/vendor/autoload.php';
+
 		// Classes.
-		// foreach ( glob( MAI_ELASTICPRESS_PLUGIN_DIR . 'classes/*.php' ) as $file ) { include $file; }
+		require_once __DIR__ . '/classes/endpoint.php';
 	}
 
 	/**
