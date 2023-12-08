@@ -71,14 +71,12 @@ class Mai_Elasticpress_Autosuggest_Endpoint {
 		$client = ClientBuilder::create();
 		$client->setHosts( [ ElasticPress\Utils\get_host() ] );
 		$client = $client->build();
-		$json   = $data->get_json_params();
+		$params = $data->get_json_params();
 
-		$params = [
+		$response = $client->search( [
 			'index' => Indexables::factory()->get( 'post' )->get_index_name(),
-			'body'  => $json_params
-		];
-
-		$response = $client->search( $params );
+			'body'  => $params,
+		] );
 
 		return $response;
 	}
