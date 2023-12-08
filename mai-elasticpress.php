@@ -136,6 +136,9 @@ final class Mai_Elasticpress {
 
 		// Classes.
 		require_once __DIR__ . '/classes/endpoint.php';
+
+		// Instantiate classes.
+		$endpoint = new Mai_Elasticpress_Autosuggest_Endpoint;
 	}
 
 	/**
