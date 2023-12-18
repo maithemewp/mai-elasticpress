@@ -13,7 +13,6 @@
 	border: var(--border);
 	border-radius: var(--border-radius);
 	box-shadow: 0px 24px 48px -4px rgba(0, 0, 0, 0.04);
-	z-index: 200;
 }
 
 .autosuggest-list {
@@ -24,8 +23,8 @@
 	padding: var(--spacing-xs) 0;
 	font-family: var(--heading-font-family);
 	font-weight: var(--heading-font-weight);
-	font-size: var(--font-size-md);
-	line-height: var(--heading-line-height);
+	font-size: var(--font-size-sm);
+	line-height: var(--heading-line-height, 1.219);
 }
 
 .autosuggest-link {
