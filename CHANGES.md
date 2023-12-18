@@ -1,6 +1,7 @@
 # Changelog
 
 ## 0.8.0 (TBD)
+* Added: Enable Elasticpress for all Mai Post Grid queries.
 * Added: Custom endpoint for Autosuggest feature.
 
 ## 0.7.3 (11/28/23)
