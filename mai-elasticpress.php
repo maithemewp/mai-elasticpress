@@ -318,7 +318,7 @@ final class Mai_Elasticpress {
 	/**
 	 * Allow all Mai Post Grid queries to pull from Elasticpress.
 	 *
-	 * @since TBD
+	 * @since 0.8.0
 	 *
 	 * @return array
 	 */
