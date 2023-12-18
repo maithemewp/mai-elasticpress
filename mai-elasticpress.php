@@ -209,6 +209,7 @@ final class Mai_Elasticpress {
 		// Mai Theme v2.
 		add_filter( 'ep_post_thumbnail_image_size',                    [ $this, 'change_image_size' ] );
 		add_filter( 'mai_post_grid_query_args',                        [ $this, 'edit_query' ], 10, 2 );
+		add_filter( 'mai_post_grid_query_args',                        [ $this, 'edit_related_query' ], 10, 2 );
 		add_filter( 'acf/load_field/key=mai_grid_block_query_by',      [ $this, 'add_related_choice' ] );
 		add_filter( 'acf/load_field/key=mai_grid_block_posts_orderby', [ $this, 'hide_orderby_field' ] );
 		add_filter( 'acf/load_field/key=mai_grid_block_posts_order',   [ $this, 'hide_order_field' ] );
@@ -315,13 +316,32 @@ final class Mai_Elasticpress {
 	}
 
 	/**
+	 * Allow all Mai Post Grid queries to pull from Elasticpress.
+	 *
+	 * @since TBD
+	 *
+	 * @return array
+	 */
+	function edit_query( $query_args, $args ) {
+		// TODO: Make sure post type is indexed.
+		if ( ! isset( $args['type'] )  ) {
+			return $query_args;
+		}
+
+		// Enabled Elasticpress.
+		$query_args['ep_integrate'] = true;
+
+		return $query_args;
+	}
+
+	/**
 	 * Modify Mai Post Grid query args.
 	 *
 	 * @since 0.1.0
 	 *
 	 * @return array
 	 */
-	function edit_query( $query_args, $args ) {
+	function edit_related_query( $query_args, $args ) {
 		if ( ! $this->has_feature( 'related_posts' ) ) {
 			return $query_args;
 		}
@@ -332,7 +352,6 @@ final class Mai_Elasticpress {
 		}
 
 		if ( isset( $args['query_by'] ) && $args['query_by'] && 'ep_related' === $args['query_by'] ) {
-			$query_args['ep_integrate'] = true;
 			$query_args['more_like']    = get_the_ID();
 			$query_args['orderby']      = 'relevance';
 			$query_args['order']        = 'DESC';
