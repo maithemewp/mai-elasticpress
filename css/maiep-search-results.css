@@ -6,10 +6,18 @@
 
 .widget_ep-facet .term,
 .wp-block-elasticpress-facet .term {
+	--link-text-decoration: none;
+	--link-text-decoration-hover: none;
 	display: flex;
 	gap: 4px;
 	align-items: center;
 	font-size: 1em;
+}
+
+.widget_ep-facet .empty-term,
+.wp-block-elasticpress-facet .empty-term {
+	--link-color: var(--color-body);
+	cursor: not-allowed;
 }
 
 .widget_ep-facet .term a span,
