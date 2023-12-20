@@ -12,12 +12,13 @@
 	font-size: 1em;
 }
 
+.widget_ep-facet .term a span,
+.wp-block-elasticpress-facet .term a span {
+	margin-left: 4px;
+}
+
 .widget_ep-facet input[type="search"],
-.wp-block-elasticpress-facet input[type="search"],
-.widget_ep-facet .empty-term,
-.wp-block-elasticpress-facet .empty-term,
-.widget_ep-facet .term.level-0:not(.selected) ~ .term:not(.level-0),
-.wp-block-elasticpress-facet .term.level-0:not(.selected) ~ .term:not(.level-0) {
+.wp-block-elasticpress-facet input[type="search"] {
 	display: none !important;
 }
 
