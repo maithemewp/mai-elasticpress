@@ -151,10 +151,11 @@ final class Mai_Elasticpress {
 	 * @return  void
 	 */
 	public function hooks() {
-		add_action( 'plugins_loaded',    [ $this, 'updater' ] );
-		add_action( 'plugins_loaded',    [ $this, 'run' ] );
-		add_action( 'init',              [ $this, 'init' ], 99 );
-		add_action( 'after_setup_theme', [ $this, 'facet_css' ] );
+		add_action( 'plugins_loaded',     [ $this, 'updater' ] );
+		add_action( 'plugins_loaded',     [ $this, 'run' ] );
+		add_action( 'init',               [ $this, 'init' ], 99 );
+		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_autosuggest_script' ] );
+		add_filter( 'render_block',       [ $this, 'render_block_facets' ], 10, 2 );
 	}
 
 	/**
@@ -554,19 +555,49 @@ final class Mai_Elasticpress {
 		return $taxonomies;
 	}
 
-	function facet_css() {
-		$facets = 'css/maiep-facets.css';
-		$args   = [
-			'handle' => 'mai-elasticpress-facets',
-			'src'    => MAI_ELASTICPRESS_PLUGIN_URL . $facets,
-			'path'   => MAI_ELASTICPRESS_PLUGIN_DIR . $facets,
+	function enqueue_autosuggest_script() {
+		if ( ! $this->has_feature( 'autosuggest' ) ) {
+			return;
+		}
+
+		$file = 'build/index.js';
+
+		// Enqueue JS file.
+		wp_enqueue_script( 'mai-elasticpress-autosuggest', MAI_ELASTICPRESS_PLUGIN_URL . $file, [], MAI_ELASTICPRESS_VERSION . '.' . date( 'njYHi', filemtime( MAI_ELASTICPRESS_PLUGIN_DIR . $file ) ), true );
+	}
+
+	/**
+	 * Adds altheading class to headings.
+	 *
+	 * @param  string $block_content The existing block content.
+	 * @param  object $block         The button block object.
+	 *
+	 * @return string The modified block HTML.
+	 */
+	function render_block_facets( $block_content, $block ) {
+		if ( ! $block_content ) {
+			return $block_content;
+		}
+
+		$blocks = [
+			'elasticpress/facet-date',
+			'elasticpress/facet-meta',
+			'elasticpress/facet-meta-range',
+			'elasticpress/facet-post-type',
+			'elasticpress/facet',
 		];
 
-		wp_enqueue_block_style( 'elasticpress/facet-date', $args );
-		wp_enqueue_block_style( 'elasticpress/facet-meta', $args );
-		wp_enqueue_block_style( 'elasticpress/facet-meta-range', $args );
-		wp_enqueue_block_style( 'elasticpress/facet-post-type', $args );
-		wp_enqueue_block_style( 'elasticpress/facet', $args ); // Taxonomy.
+		// Bail if not the block we want.
+		if ( ! in_array( $block['blockName'], $blocks ) ) {
+			return $block_content;
+		}
+
+		$file = 'css/maiep-facets.css';
+
+		// Enqueue CSS file.
+		wp_enqueue_style( 'mai-elasticpress-facets', MAI_ELASTICPRESS_PLUGIN_URL . $file, [], MAI_ELASTICPRESS_VERSION . '.' . date( 'njYHi', filemtime( MAI_ELASTICPRESS_PLUGIN_DIR . $file ) ) );
+
+		return $block_content;
 	}
 }
 
