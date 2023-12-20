@@ -1,6 +1,5 @@
 .widget_ep-facet .searchable .inner,
 .wp-block-elasticpress-facet .searchable .inner {
-	max-height: unset !important;
 	overflow: auto !important;
 }
 
