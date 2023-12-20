@@ -106,16 +106,16 @@ __webpack_require__.r(__webpack_exports__);
 (0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__.addFilter)('ep.InstantResults.Result', 'mai-elasticpress/autosuggest', () => autoSuggestImage);
 const autoSuggestImage = ({
   date,
-  image,
+  thumbnail,
   title,
   url
 }) => {
-  console.log(image);
+  console.log(thumbnail);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "maiep-autosuggest-item"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
     href: url
-  }, image, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  }, thumbnail, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "maiep-autosuggest-title"
   }, title)));
 };
