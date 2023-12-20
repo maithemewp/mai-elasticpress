@@ -10,6 +10,16 @@
 
 module.exports = window["React"];
 
+/***/ }),
+
+/***/ "@wordpress/hooks":
+/*!*******************************!*\
+  !*** external ["wp","hooks"] ***!
+  \*******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["hooks"];
+
 /***/ })
 
 /******/ 	});
@@ -89,8 +99,14 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/hooks */ "@wordpress/hooks");
+/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__);
 
-addFilter('ep.InstantResults.Result', 'mai-elasticpress/autosuggest', () => autoSuggestImage);
+/**
+ * WordPress dependencies
+ */
+
+wp.hooks.addFilter('ep.InstantResults.Result', 'mai-elasticpress/autosuggest', () => autoSuggestImage);
 const autoSuggestImage = ({
   date,
   image,
