@@ -560,10 +560,10 @@ final class Mai_Elasticpress {
 			return;
 		}
 
-		$file = 'build/index.js';
+		$asset_file = include plugin_dir_path( __FILE__ ) . 'build/index.asset.php';
 
 		// Enqueue JS file.
-		wp_enqueue_script( 'mai-elasticpress-autosuggest', MAI_ELASTICPRESS_PLUGIN_URL . $file, [], MAI_ELASTICPRESS_VERSION . '.' . date( 'njYHi', filemtime( MAI_ELASTICPRESS_PLUGIN_DIR . $file ) ), true );
+		wp_enqueue_script( 'mai-elasticpress-autosuggest', plugin_dir_url( __FILE__ ) . 'build/index.js', $asset_file['dependencies'], $asset_file['version'], true );
 	}
 
 	/**

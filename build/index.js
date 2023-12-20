@@ -102,9 +102,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/hooks */ "@wordpress/hooks");
 /* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__);
 
-/**
- * WordPress dependencies
- */
 
 (0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__.addFilter)('ep.InstantResults.Result', 'mai-elasticpress/autosuggest', () => autoSuggestImage);
 const autoSuggestImage = ({
@@ -113,6 +110,7 @@ const autoSuggestImage = ({
   title,
   url
 }) => {
+  console.log(image);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "maiep-autosuggest-item"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
