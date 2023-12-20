@@ -106,7 +106,7 @@ __webpack_require__.r(__webpack_exports__);
  * WordPress dependencies
  */
 
-wp.hooks.addFilter('ep.InstantResults.Result', 'mai-elasticpress/autosuggest', () => autoSuggestImage);
+(0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__.addFilter)('ep.InstantResults.Result', 'mai-elasticpress/autosuggest', () => autoSuggestImage);
 const autoSuggestImage = ({
   date,
   image,
