@@ -1,6 +1,9 @@
-const { addFilter } = wp.hooks;
+/**
+ * WordPress dependencies
+ */
+import { addFilter } from '@wordpress/hooks'
 
-addFilter( 'ep.InstantResults.Result', 'mai-elasticpress/autosuggest', () => autoSuggestImage );
+wp.hooks.addFilter( 'ep.InstantResults.Result', 'mai-elasticpress/autosuggest', () => autoSuggestImage );
 const autoSuggestImage = ({ date, image, title, url }) => {
 	return (
 		<div className="maiep-autosuggest-item">
