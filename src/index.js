@@ -3,7 +3,7 @@
  */
 import { addFilter } from '@wordpress/hooks'
 
-wp.hooks.addFilter( 'ep.InstantResults.Result', 'mai-elasticpress/autosuggest', () => autoSuggestImage );
+addFilter( 'ep.InstantResults.Result', 'mai-elasticpress/autosuggest', () => autoSuggestImage );
 const autoSuggestImage = ({ date, image, title, url }) => {
 	return (
 		<div className="maiep-autosuggest-item">
