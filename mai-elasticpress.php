@@ -1,13 +1,16 @@
 <?php
 
 /**
- * Plugin Name:     Mai Elasticpress
- * Plugin URI:      https://bizbudding.com/
- * Description:     Elasticpress helper plugin for BizBudding/Mai Theme.
- * Version:         0.8.0-beta.1
+ * Plugin Name:       Mai Elasticpress
+ * Plugin URI:        https://bizbudding.com/
+ * Description:       Elasticpress helper plugin for BizBudding/Mai Theme.
+ * Version:           0.8.0-beta.1
  *
- * Author:          BizBudding
- * Author URI:      https://bizbudding.com
+ * Requires at least: 6.1
+ * Requires PHP:      7.0
+ *
+ * Author:            BizBudding
+ * Author URI:        https://bizbudding.com
  */
 
 // Exit if accessed directly.
@@ -148,9 +151,10 @@ final class Mai_Elasticpress {
 	 * @return  void
 	 */
 	public function hooks() {
-		add_action( 'plugins_loaded', [ $this, 'updater' ] );
-		add_action( 'plugins_loaded', [ $this, 'run' ] );
-		add_action( 'init',           [ $this, 'init' ], 99 );
+		add_action( 'plugins_loaded',    [ $this, 'updater' ] );
+		add_action( 'plugins_loaded',    [ $this, 'run' ] );
+		add_action( 'init',              [ $this, 'init' ], 99 );
+		add_action( 'after_setup_theme', [ $this, 'facet_css' ] );
 	}
 
 	/**
@@ -548,6 +552,21 @@ final class Mai_Elasticpress {
 		}
 
 		return $taxonomies;
+	}
+
+	function facet_css() {
+		$facets = 'css/maiep-facets.css';
+		$args   = [
+			'handle' => 'mai-elasticpress-facets',
+			'src'    => MAI_ELASTICPRESS_PLUGIN_URL . $facets,
+			'path'   => MAI_ELASTICPRESS_PLUGIN_DIR . $facets,
+		];
+
+		wp_enqueue_block_style( 'elasticpress/facet-date', $args );
+		wp_enqueue_block_style( 'elasticpress/facet-meta', $args );
+		wp_enqueue_block_style( 'elasticpress/facet-meta-range', $args );
+		wp_enqueue_block_style( 'elasticpress/facet-post-type', $args );
+		wp_enqueue_block_style( 'elasticpress/facet', $args ); // Taxonomy.
 	}
 }
 

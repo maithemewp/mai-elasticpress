@@ -1,6 +1,6 @@
 {
-    "require": {
-        "elasticsearch/elasticsearch" : "~7.0",
-        "yahnis-elsts/plugin-update-checker": "^5"
-    }
+	"require": {
+		"elasticsearch/elasticsearch": "~7.0",
+		"yahnis-elsts/plugin-update-checker": "^5"
+	}
 }
