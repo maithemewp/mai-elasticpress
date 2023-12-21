@@ -164,7 +164,6 @@ final class Mai_Elasticpress {
 		add_action( 'plugins_loaded',          [ $this, 'run' ] );
 		add_action( 'init',                    [ $this, 'init' ], 99 );
 		add_filter( 'ep_facet_renderer_class', [ $this, 'ep_facet_renderer_class' ], 10, 4 );
-		add_filter( 'render_block',            [ $this, 'render_block_facets' ], 10, 2 );
 	}
 
 	/**
