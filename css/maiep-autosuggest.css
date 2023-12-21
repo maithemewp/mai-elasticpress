@@ -19,6 +19,8 @@
 	--list-margin: 0;
 	--list-item-margin: 0;
 	list-style: none;
+	max-height: 60vh;
+	overflow: auto;
 	margin: 0;
 	padding: var(--spacing-xs) 0;
 	font-family: var(--heading-font-family);
