@@ -1,5 +1,6 @@
 .ep-autosuggest-container {
 	position: relative;
+	z-index: 1;
 }
 
 .ep-autosuggest-container .ep-autosuggest {
