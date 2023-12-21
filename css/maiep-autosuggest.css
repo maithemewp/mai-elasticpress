@@ -39,7 +39,7 @@
 
 .autosuggest-link:hover,
 .autosuggest-link:focus {
-	background-color: rgba(0,0,0,0.04);
+	background-color: rgba(0,0,0,0.025);
 }
 
 .autosuggest-link-has-image {
