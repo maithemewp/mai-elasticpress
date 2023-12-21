@@ -1,8 +1,8 @@
 # Changelog
 
-## 0.8.0 (TBD)
+## 0.8.0 (12/21/23)
 * Added: Enable Elasticpress for all Mai Post Grid queries.
-* Added: Custom endpoint for Autosuggest feature.
+* Added: Compatibility with Autosuggest feature, including a custom endpoint.
 
 ## 0.7.3 (11/28/23)
 * Fixed: PHP error with misspelled property name in foreach loop.
