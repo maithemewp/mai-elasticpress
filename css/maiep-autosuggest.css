@@ -30,8 +30,18 @@
 .autosuggest-link {
 	--link-text-decoration: none;
 	--link-text-decoration-hover: none;
-	display: block;
+	display: flex;
+	align-items: center;
+	gap: 1em;
 	padding: var(--spacing-xxs) var(--spacing-md);
 	color: var(--color-body, #333);
 	text-decoration: none;
+}
+
+.autosuggest-image {
+	flex-basis: min(80px, 20%);
+}
+
+.autosuggest-title {
+
 }
