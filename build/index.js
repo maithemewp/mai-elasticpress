@@ -96,7 +96,7 @@ const autosuggestItemHTML = (itemHTML, option, index, searchText) => {
   const postDate = new Date(option._source.post_date).toLocaleString('en', {
     dateStyle: 'medium'
   });
-  console.log(option._source);
+  console.log(option);
   return `<li class="autosuggest-item" role="option" aria-selected="false" id="autosuggest-option-${index}">
 		<a href="${url}" class="autosuggest-link" data-url="${url}" tabindex="-1">
 			${text} (${postDate})
