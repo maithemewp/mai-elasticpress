@@ -99,7 +99,7 @@ const autosuggestItemHTML = (itemHTML, option, index, searchText) => {
   console.log(option, option._source);
   return `<li class="autosuggest-item" role="option" aria-selected="false" id="autosuggest-option-${index}">
 		<a href="${url}" class="autosuggest-link" data-url="${url}" tabindex="-1">
-			${text} (${postDate})
+			<img src="${option._source.thumbnail.src}" alt="${option._source.thumbnail.alt}">${text}
 		</a>
 	</li>`;
 };
