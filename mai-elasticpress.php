@@ -160,11 +160,11 @@ final class Mai_Elasticpress {
 	public function hooks() {
 		$this->suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		add_action( 'plugins_loaded',     [ $this, 'updater' ] );
-		add_action( 'plugins_loaded',     [ $this, 'run' ] );
-		add_action( 'init',               [ $this, 'init' ], 99 );
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_autosuggest_script' ] );
-		add_filter( 'render_block',       [ $this, 'render_block_facets' ], 10, 2 );
+		add_action( 'plugins_loaded',          [ $this, 'updater' ] );
+		add_action( 'plugins_loaded',          [ $this, 'run' ] );
+		add_action( 'init',                    [ $this, 'init' ], 99 );
+		add_filter( 'ep_facet_renderer_class', [ $this, 'ep_facet_renderer_class' ], 10, 4 );
+		add_filter( 'render_block',            [ $this, 'render_block_facets' ], 10, 2 );
 	}
 
 	/**
@@ -583,37 +583,34 @@ final class Mai_Elasticpress {
 	}
 
 	/**
-	 * Enqueues facets CSS file.
+	 * Filter the class name to be used to render the Facet.
 	 *
-	 * @param  string $block_content The existing block content.
-	 * @param  object $block         The button block object.
+	 * @since TBD
 	 *
-	 * @return string The modified block HTML.
+	 * @param string $classname  The name of the class to be instantiated and used as a renderer.
+	 * @param string $facet_type The type of the facet.
+	 * @param string $context    Context where the renderer will be used: `block` or `widget`, for example.
+	 * @param array  $attributes Element attributes.
+	 *
+	 * @return string
 	 */
-	function render_block_facets( $block_content, $block ) {
-		if ( ! $block_content ) {
-			return $block_content;
+	function ep_facet_renderer_class( $classname, $facet_type, $context, $attributes ) {
+		static $run = null;
+
+		if ( ! is_null( $run ) ) {
+			return $classname;
 		}
 
-		$blocks = [
-			'elasticpress/facet-date',
-			'elasticpress/facet-meta',
-			'elasticpress/facet-meta-range',
-			'elasticpress/facet-post-type',
-			'elasticpress/facet',
-		];
-
-		// Bail if not the block we want.
-		if ( ! in_array( $block['blockName'], $blocks ) ) {
-			return $block_content;
-		}
-
+		// Set file.
 		$file = "css/maiep-facets{$this->suffix}.css";
 
 		// Enqueue CSS file.
 		wp_enqueue_style( 'mai-elasticpress-facets', MAI_ELASTICPRESS_PLUGIN_URL . $file, [], MAI_ELASTICPRESS_VERSION . '.' . date( 'njYHi', filemtime( MAI_ELASTICPRESS_PLUGIN_DIR . $file ) ) );
 
-		return $block_content;
+		// Only run once.
+		$run = true;
+
+		return $classname;
 	}
 }
 
