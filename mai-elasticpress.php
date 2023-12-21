@@ -163,6 +163,7 @@ final class Mai_Elasticpress {
 		add_action( 'plugins_loaded',          [ $this, 'updater' ] );
 		add_action( 'plugins_loaded',          [ $this, 'run' ] );
 		add_action( 'init',                    [ $this, 'init' ], 99 );
+		add_action( 'wp_enqueue_scripts',      [ $this, 'enqueue_autosuggest_script' ] );
 		add_filter( 'ep_facet_renderer_class', [ $this, 'ep_facet_renderer_class' ], 10, 4 );
 	}
 
