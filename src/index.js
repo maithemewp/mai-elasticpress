@@ -9,7 +9,7 @@ const autosuggestItemHTML = ( itemHTML, option, index, searchText ) => {
 
 	return `<li class="autosuggest-item" role="option" aria-selected="false" id="autosuggest-option-${index}">
 		<a href="${url}" class="autosuggest-link autosuggest-link-has-image" data-url="${url}" tabindex="-1">
-			${option._source.thumbnail ? `<img class="autosuggest-image" src="${option._source.thumbnail.src}" alt="${option._source.thumbnail.alt}">` : `<span class="autosuggest-image" style="aspect-ratio:${option._source.thumbnail.width}/${option._source.thumbnail.height}></span>`}
+			${option._source.thumbnail ? `<img class="autosuggest-image" src="${option._source.thumbnail.src}" alt="${option._source.thumbnail.alt}">` : `<span class="autosuggest-image" style="aspect-ratio:var(--autosuggest-image-aspect-ratio,1/1);"></span>`}
 			<span class="autosuggest-title">${text}</span>
 		</a>
 	</li>`;
