@@ -37,6 +37,11 @@
 	text-decoration: none;
 }
 
+.autosuggest-link:hover,
+.autosuggest-link:focus {
+	background-color: rgba(0,0,0,0.04);
+}
+
 .autosuggest-link-has-image {
 	display: grid;
 	grid-template-columns: min(80px, 20%) 1fr;
