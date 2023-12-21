@@ -1,6 +1,6 @@
 .widget_ep-facet .searchable .inner,
 .wp-block-elasticpress-facet .searchable .inner {
-	overflow: auto !important;
+	overflow: auto scroll !important;
 }
 
 .widget_ep-facet .term,
