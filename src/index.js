@@ -1,12 +1,16 @@
 import { addFilter } from '@wordpress/hooks'
 
-addFilter( 'ep.InstantResults.Result', 'mai-elasticpress/autosuggest', () => autoSuggestImage );
-const autoSuggestImage = ({ date, thumbnail, title, url }) => {
-	console.log( thumbnail );
+addFilter( 'ep.Autosuggest.listHTML', 'mai-elasticpress/autosuggestItemHTML', autosuggestItemHTML );
+const autosuggestItemHTML = ( itemHTML, option, index, searchText ) => {
+	const text     = option._source.post_title;
+	const url      = option._source.permalink;
+	const postDate = new Date(option._source.post_date).toLocaleString('en', { dateStyle: 'medium' })
 
-	return (
-		<div className="maiep-autosuggest-item">
-			<a href={url}>{thumbnail}<span className="maiep-autosuggest-title">{title}</span></a>
-		</div>
-	)
+	console.log( option._source );
+
+	return `<li class="autosuggest-item" role="option" aria-selected="false" id="autosuggest-option-${index}">
+		<a href="${url}" class="autosuggest-link" data-url="${url}" tabindex="-1">
+			${text} (${postDate})
+		</a>
+	</li>`;
 };

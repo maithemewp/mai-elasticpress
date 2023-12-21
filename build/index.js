@@ -2,16 +2,6 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "react":
-/*!************************!*\
-  !*** external "React" ***!
-  \************************/
-/***/ ((module) => {
-
-module.exports = window["React"];
-
-/***/ }),
-
 /***/ "@wordpress/hooks":
 /*!*******************************!*\
   !*** external ["wp","hooks"] ***!
@@ -97,27 +87,22 @@ var __webpack_exports__ = {};
   !*** ./src/index.js ***!
   \**********************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/hooks */ "@wordpress/hooks");
-/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/hooks */ "@wordpress/hooks");
+/* harmony import */ var _wordpress_hooks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_hooks__WEBPACK_IMPORTED_MODULE_0__);
 
-
-(0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_1__.addFilter)('ep.InstantResults.Result', 'mai-elasticpress/autosuggest', () => autoSuggestImage);
-const autoSuggestImage = ({
-  date,
-  thumbnail,
-  title,
-  url
-}) => {
-  console.log(thumbnail);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "maiep-autosuggest-item"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
-    href: url
-  }, thumbnail, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "maiep-autosuggest-title"
-  }, title)));
+(0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_0__.addFilter)('ep.Autosuggest.listHTML', 'mai-elasticpress/autosuggestItemHTML', autosuggestItemHTML);
+const autosuggestItemHTML = (itemHTML, option, index, searchText) => {
+  const text = option._source.post_title;
+  const url = option._source.permalink;
+  const postDate = new Date(option._source.post_date).toLocaleString('en', {
+    dateStyle: 'medium'
+  });
+  console.log(option._source);
+  return `<li class="autosuggest-item" role="option" aria-selected="false" id="autosuggest-option-${index}">
+		<a href="${url}" class="autosuggest-link" data-url="${url}" tabindex="-1">
+			${text} (${postDate})
+		</a>
+	</li>`;
 };
 })();
 
