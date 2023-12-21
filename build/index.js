@@ -103,7 +103,7 @@ const autosuggestItemHTML = (itemHTML, option, index, searchText) => {
 		</a>
 	</li>`;
 };
-(0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_0__.addFilter)('ep.Autosuggest.listHTML', 'mai-elasticpress/autosuggestItemHTML', autosuggestItemHTML);
+(0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_0__.addFilter)('ep.Autosuggest.itemHTML', 'mai-elasticpress/autosuggestItemHTML', autosuggestItemHTML);
 })();
 
 /******/ })()

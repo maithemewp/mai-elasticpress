@@ -14,4 +14,4 @@ const autosuggestItemHTML = ( itemHTML, option, index, searchText ) => {
 	</li>`;
 };
 
-addFilter( 'ep.Autosuggest.listHTML', 'mai-elasticpress/autosuggestItemHTML', autosuggestItemHTML );
+addFilter( 'ep.Autosuggest.itemHTML', 'mai-elasticpress/autosuggestItemHTML', autosuggestItemHTML );
