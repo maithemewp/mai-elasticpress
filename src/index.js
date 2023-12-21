@@ -1,6 +1,5 @@
 import { addFilter } from '@wordpress/hooks'
 
-addFilter( 'ep.Autosuggest.listHTML', 'mai-elasticpress/autosuggestItemHTML', autosuggestItemHTML );
 const autosuggestItemHTML = ( itemHTML, option, index, searchText ) => {
 	const text     = option._source.post_title;
 	const url      = option._source.permalink;
@@ -14,3 +13,5 @@ const autosuggestItemHTML = ( itemHTML, option, index, searchText ) => {
 		</a>
 	</li>`;
 };
+
+addFilter( 'ep.Autosuggest.listHTML', 'mai-elasticpress/autosuggestItemHTML', autosuggestItemHTML );
