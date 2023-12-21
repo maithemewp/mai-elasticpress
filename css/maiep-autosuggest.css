@@ -30,13 +30,16 @@
 .autosuggest-link {
 	--link-text-decoration: none;
 	--link-text-decoration-hover: none;
+	padding: var(--spacing-xxs) var(--spacing-md);
+	color: var(--color-body, #333);
+	text-decoration: none;
+}
+
+.autosuggest-link-has-image {
 	display: grid;
 	grid-template-columns: min(80px, 20%) 1fr;
 	align-items: center;
 	gap: var(--spacing-sm);
-	padding: var(--spacing-xxs) var(--spacing-md);
-	color: var(--color-body, #333);
-	text-decoration: none;
 }
 
 span.autosuggest-image {

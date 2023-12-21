@@ -8,7 +8,7 @@ const autosuggestItemHTML = ( itemHTML, option, index, searchText ) => {
 	console.log( option, option._source );
 
 	return `<li class="autosuggest-item" role="option" aria-selected="false" id="autosuggest-option-${index}">
-		<a href="${url}" class="autosuggest-link" data-url="${url}" tabindex="-1">
+		<a href="${url}" class="autosuggest-link autosuggest-link-has-image" data-url="${url}" tabindex="-1">
 			${option._source.thumbnail.src ? `<img class="autosuggest-image" src="${option._source.thumbnail.src}" alt="${option._source.thumbnail.alt}">` : '<span class="autosuggest-image"></span>'}
 			<span class="autosuggest-title">${text}</span>
 		</a>
