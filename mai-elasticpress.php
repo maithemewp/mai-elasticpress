@@ -40,6 +40,13 @@ final class Mai_Elasticpress {
 	protected $taxonomies = [];
 
 	/**
+	 * The suffix for the JS and CSS files.
+	 *
+	 * @var string
+	 */
+	protected $suffix = '';
+
+	/**
 	 * Main Mai_Elasticpress Instance.
 	 *
 	 * Insures that only one instance of Mai_Elasticpress exists in memory at any one
@@ -151,6 +158,8 @@ final class Mai_Elasticpress {
 	 * @return  void
 	 */
 	public function hooks() {
+		$this->suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
 		add_action( 'plugins_loaded',     [ $this, 'updater' ] );
 		add_action( 'plugins_loaded',     [ $this, 'run' ] );
 		add_action( 'init',               [ $this, 'init' ], 99 );
@@ -236,8 +245,8 @@ final class Mai_Elasticpress {
 	 * @return array
 	 */
 	function load_css( $styles ) {
-		$instant     = 'css/maiep-instant-results.css';
-		$autosuggest = 'css/maiep-autosuggest.css';
+		$instant     = "css/maiep-instant-results{$this->suffix}.css";
+		$autosuggest = "css/maiep-autosuggest{$this->suffix}.css";
 
 		$styles['elasticpress-instant-results'] = [
 			'location'  => 'public',
@@ -555,6 +564,13 @@ final class Mai_Elasticpress {
 		return $taxonomies;
 	}
 
+	/**
+	 * Enqueues autosuggest JS file.
+	 *
+	 * @since TBD
+	 *
+	 * @return void
+	 */
 	function enqueue_autosuggest_script() {
 		if ( ! $this->has_feature( 'autosuggest' ) ) {
 			return;
@@ -567,7 +583,7 @@ final class Mai_Elasticpress {
 	}
 
 	/**
-	 * Adds altheading class to headings.
+	 * Enqueues facets CSS file.
 	 *
 	 * @param  string $block_content The existing block content.
 	 * @param  object $block         The button block object.
@@ -592,7 +608,7 @@ final class Mai_Elasticpress {
 			return $block_content;
 		}
 
-		$file = 'css/maiep-facets.css';
+		$file = "css/maiep-facets{$this->suffix}.css";
 
 		// Enqueue CSS file.
 		wp_enqueue_style( 'mai-elasticpress-facets', MAI_ELASTICPRESS_PLUGIN_URL . $file, [], MAI_ELASTICPRESS_VERSION . '.' . date( 'njYHi', filemtime( MAI_ELASTICPRESS_PLUGIN_DIR . $file ) ) );
