@@ -96,14 +96,13 @@ const autosuggestItemHTML = (itemHTML, option, index, searchText) => {
   const postDate = new Date(option._source.post_date).toLocaleString('en', {
     dateStyle: 'medium'
   });
-  console.log(option);
+  console.log(option, option._source);
   return `<li class="autosuggest-item" role="option" aria-selected="false" id="autosuggest-option-${index}">
 		<a href="${url}" class="autosuggest-link" data-url="${url}" tabindex="-1">
 			${text} (${postDate})
 		</a>
 	</li>`;
 };
-(0,_wordpress_hooks__WEBPACK_IMPORTED_MODULE_0__.addFilter)('ep.Autosuggest.listHTML', 'mai-elasticpress/autosuggestItemHTML', autosuggestItemHTML);
 })();
 
 /******/ })()
