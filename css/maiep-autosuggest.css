@@ -3,6 +3,10 @@
 	z-index: 1;
 }
 
+.ep-autosuggest-container + .search-form-submit {
+	z-index: 1;
+}
+
 .ep-autosuggest-container .ep-autosuggest {
 	display: none;
 	width: 100%;
