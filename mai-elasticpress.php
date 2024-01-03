@@ -127,7 +127,7 @@ final class Mai_Elasticpress {
 			define( 'MAI_ELASTICPRESS_PLUGIN_FILE', __FILE__ );
 		}
 
-		// Plugin Base Name
+		// Plugin Base Name.
 		if ( ! defined( 'MAI_ELASTICPRESS_BASENAME' ) ) {
 			define( 'MAI_ELASTICPRESS_BASENAME', dirname( plugin_basename( __FILE__ ) ) );
 		}

@@ -7,5 +7,5 @@ Using Mai Post Grid, under the Entries tab, set "Get Entries By" setting to "Rel
 ## Configure Autosuggest
 Add the following url as the endpoint in the Autosuggest settings.
 ```
-https://yourdomain.com/wp-json/mai-elasticpress/autosuggest/
+https://yourdomain.com/wp-json/mai-elasticpress/v1/autosuggest/
 ```
