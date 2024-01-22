@@ -40,6 +40,7 @@
 	padding: var(--spacing-xxs) var(--spacing-md);
 	color: var(--color-body, #333);
 	text-decoration: none;
+	text-transform: none;
 }
 
 .autosuggest-link:hover,
