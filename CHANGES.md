@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.1 (1/22/24)
+* Fixed: Autosuggest CSS tweaks.
+
 ## 0.8.0 (12/21/23)
 * Added: Enable Elasticpress for all Mai Post Grid queries.
 * Added: Compatibility with Autosuggest feature, including a custom endpoint.
