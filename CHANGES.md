@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.2 (1/30/24)
+* Changed: Update plugin header to require PHP 8.
+
 ## 0.8.1 (1/22/24)
 * Fixed: Autosuggest CSS tweaks.
 
