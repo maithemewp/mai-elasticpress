@@ -8,5 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     'ad155f8f1cf0d418fe49e248db8c661b' => $vendorDir . '/react/promise/src/functions_include.php',
     '8592c7b0947d8a0965a9e8c3d16f9c24' => $vendorDir . '/elasticsearch/elasticsearch/src/autoload.php',
-    '45a16669595eb3c0a9e2994e57fc3188' => $vendorDir . '/yahnis-elsts/plugin-update-checker/load-v5p3.php',
+    '256558b1ddf2fa4366ea7d7602798dd1' => $vendorDir . '/yahnis-elsts/plugin-update-checker/load-v5p5.php',
 );
