@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.8.3 (12/5/24)
+* Changed: Updated the updater.
+
 ## 0.8.2 (1/30/24)
 * Changed: Update plugin header to require PHP 8.
 
