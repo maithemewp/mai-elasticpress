@@ -527,6 +527,11 @@ final class Mai_Elasticpress {
 	 * @return void
 	 */
 	function init() {
+		// Bail if EP Indexables not available.
+		if ( ! class_exists( 'ElasticPress\Indexables' ) ) {
+			return;
+		}
+
 		// Get all post types being indexed by EP.
 		$ep_post_types = ElasticPress\Indexables::factory()->get( 'post' )->get_indexable_post_types();
 
