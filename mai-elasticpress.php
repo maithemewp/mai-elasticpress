@@ -163,7 +163,7 @@ final class Mai_Elasticpress {
 
 		add_action( 'plugins_loaded',          [ $this, 'updater' ] );
 		add_action( 'plugins_loaded',          [ $this, 'run' ] );
-		add_action( 'init',                    [ $this, 'init' ], 99 );
+		add_action( 'elasticpress_loaded',     [ $this, 'ep_loaded' ] );
 		add_action( 'wp_enqueue_scripts',      [ $this, 'enqueue_autosuggest_script' ] );
 		add_filter( 'ep_facet_renderer_class', [ $this, 'ep_facet_renderer_class' ], 10, 4 );
 	}
@@ -520,6 +520,18 @@ final class Mai_Elasticpress {
 	}
 
 	/**
+	 * Registers the init hook for taxonomy sync.
+	 * Only fires when ElasticPress is active and loaded.
+	 *
+	 * @since 0.9.0
+	 *
+	 * @return void
+	 */
+	function ep_loaded() {
+		add_action( 'init', [ $this, 'init' ], 99 );
+	}
+
+	/**
 	 * Adds available taxonomies for sync.
 	 *
 	 * @since 0.7.0
@@ -527,11 +539,6 @@ final class Mai_Elasticpress {
 	 * @return void
 	 */
 	function init() {
-		// Bail if EP Indexables not available.
-		if ( ! class_exists( 'ElasticPress\Indexables' ) ) {
-			return;
-		}
-
 		// Get all post types being indexed by EP.
 		$ep_post_types = ElasticPress\Indexables::factory()->get( 'post' )->get_indexable_post_types();
 
