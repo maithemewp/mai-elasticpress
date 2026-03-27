@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.9.1 (3/27/26)
+* Fixed: Fatal error during EP sync when merging taxonomy objects with strings in `ep_sync_taxonomies` filter.
+
 ## 0.9.0 (3/27/26)
 * Changed: Auto-detect non-public taxonomies with `show_ui` on indexed post types for EP sync, replacing hardcoded `mai_display`/`favorite_cat` list.
 * Changed: Deduplicate synced taxonomies to avoid conflicts with sites that add them explicitly.
