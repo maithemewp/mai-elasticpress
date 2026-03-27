@@ -9,47 +9,47 @@ class ComposerStaticInitc3082b4ddf80a103ff28dfe8956bfc64
     public static $files = array (
         'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
         '8592c7b0947d8a0965a9e8c3d16f9c24' => __DIR__ . '/..' . '/elasticsearch/elasticsearch/src/autoload.php',
-        '256558b1ddf2fa4366ea7d7602798dd1' => __DIR__ . '/..' . '/yahnis-elsts/plugin-update-checker/load-v5p5.php',
+        'f6d4f6bcee7247df6b777884c3e22f98' => __DIR__ . '/..' . '/yahnis-elsts/plugin-update-checker/load-v5p6.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'R' => 
+        'R' =>
         array (
             'React\\Promise\\' => 14,
         ),
-        'P' => 
+        'P' =>
         array (
             'Psr\\Log\\' => 8,
         ),
-        'G' => 
+        'G' =>
         array (
             'GuzzleHttp\\Stream\\' => 18,
             'GuzzleHttp\\Ring\\' => 16,
         ),
-        'E' => 
+        'E' =>
         array (
             'Elasticsearch\\' => 14,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'React\\Promise\\' => 
+        'React\\Promise\\' =>
         array (
             0 => __DIR__ . '/..' . '/react/promise/src',
         ),
-        'Psr\\Log\\' => 
+        'Psr\\Log\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
         ),
-        'GuzzleHttp\\Stream\\' => 
+        'GuzzleHttp\\Stream\\' =>
         array (
             0 => __DIR__ . '/..' . '/ezimuel/guzzlestreams/src',
         ),
-        'GuzzleHttp\\Ring\\' => 
+        'GuzzleHttp\\Ring\\' =>
         array (
             0 => __DIR__ . '/..' . '/ezimuel/ringphp/src',
         ),
-        'Elasticsearch\\' => 
+        'Elasticsearch\\' =>
         array (
             0 => __DIR__ . '/..' . '/elasticsearch/elasticsearch/src/Elasticsearch',
         ),

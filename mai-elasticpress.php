@@ -4,10 +4,11 @@
  * Plugin Name:       Mai Elasticpress
  * Plugin URI:        https://bizbudding.com/
  * Description:       Elasticpress helper plugin for BizBudding/Mai Theme.
- * Version:           0.8.3
+ * Version:           0.9.0
  *
- * Requires at least: 6.1
+ * Requires at least: 6.5
  * Requires PHP:      8.0
+ * Requires Plugins:  elasticpress
  *
  * Author:            BizBudding
  * Author URI:        https://bizbudding.com
@@ -109,7 +110,7 @@ final class Mai_Elasticpress {
 	private function setup_constants() {
 		// Plugin version.
 		if ( ! defined( 'MAI_ELASTICPRESS_VERSION' ) ) {
-			define( 'MAI_ELASTICPRESS_VERSION', '0.8.3' );
+			define( 'MAI_ELASTICPRESS_VERSION', '0.9.0' );
 		}
 
 		// Plugin Folder Path.
@@ -526,17 +527,26 @@ final class Mai_Elasticpress {
 	 * @return void
 	 */
 	function init() {
-		$taxos = [
-			'mai_display',  // Mai Display Taxonomy.
-			'favorite_cat', // Mai Favorites.
-		];
+		// Get all post types being indexed by EP.
+		$ep_post_types = ElasticPress\Indexables::factory()->get( 'post' )->get_indexable_post_types();
 
-		foreach ( $taxos as $taxo ) {
-			if ( ! taxonomy_exists( $taxo ) ) {
-				continue;
+		// Get all non-public taxonomies with a UI that are attached to indexed post types.
+		foreach ( $ep_post_types as $post_type ) {
+			$taxonomies = get_object_taxonomies( $post_type, 'objects' );
+
+			foreach ( $taxonomies as $taxonomy ) {
+				// Skip public taxonomies, EP syncs those by default.
+				if ( $taxonomy->public ) {
+					continue;
+				}
+
+				// Only include taxonomies with a UI (intentionally registered for use).
+				if ( ! $taxonomy->show_ui ) {
+					continue;
+				}
+
+				$this->taxonomies[ $taxonomy->name ] = $taxonomy->name;
 			}
-
-			$this->taxonomies[] = $taxo;
 		}
 
 		if ( ! $this->taxonomies ) {
@@ -548,18 +558,23 @@ final class Mai_Elasticpress {
 	}
 
 	/**
-	 * Adds taxonomies to Elasticpress sync.
+	 * Adds non-public taxonomies to Elasticpress sync.
+	 *
+	 * EP only syncs public taxonomies by default. This adds any non-public
+	 * taxonomies with show_ui that are attached to indexed post types,
+	 * so tax_query works correctly via EP for Mai Post Grid.
 	 *
 	 * @since 0.7.0
+	 * @since 0.9.0 Auto-detect non-public taxonomies instead of hardcoding.
 	 *
-	 * @param array $taxonomies
+	 * @param array $taxonomies The taxonomies to sync.
 	 *
 	 * @return array
 	 */
 	function add_taxonomies( $taxonomies ) {
-		foreach ( $this->taxonomies as $taxo ) {
-			$taxonomies[] = $taxo;
-		}
+		$taxonomies = array_merge( $taxonomies, array_values( $this->taxonomies ) );
+		$taxonomies = array_unique( $taxonomies );
+		$taxonomies = array_filter( $taxonomies );
 
 		return $taxonomies;
 	}
