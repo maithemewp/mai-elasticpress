@@ -163,7 +163,7 @@ final class Mai_Elasticpress {
 
 		add_action( 'plugins_loaded',          [ $this, 'updater' ] );
 		add_action( 'plugins_loaded',          [ $this, 'run' ] );
-		add_action( 'elasticpress_loaded',     [ $this, 'ep_loaded' ] );
+		add_action( 'init',                    [ $this, 'init' ], 99 );
 		add_action( 'wp_enqueue_scripts',      [ $this, 'enqueue_autosuggest_script' ] );
 		add_filter( 'ep_facet_renderer_class', [ $this, 'ep_facet_renderer_class' ], 10, 4 );
 	}
@@ -517,18 +517,6 @@ final class Mai_Elasticpress {
 		add_action( 'genesis_sidebar', function() use ( $widget_area ) {
 			echo $widget_area;
 		});
-	}
-
-	/**
-	 * Registers the init hook for taxonomy sync.
-	 * Only fires when ElasticPress is active and loaded.
-	 *
-	 * @since 0.9.0
-	 *
-	 * @return void
-	 */
-	function ep_loaded() {
-		add_action( 'init', [ $this, 'init' ], 99 );
 	}
 
 	/**

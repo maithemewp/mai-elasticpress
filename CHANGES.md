@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.0 (3/27/26)
+* Changed: Auto-detect non-public taxonomies with `show_ui` on indexed post types for EP sync, replacing hardcoded `mai_display`/`favorite_cat` list.
+* Changed: Deduplicate synced taxonomies to avoid conflicts with sites that add them explicitly.
+* Changed: Added `Requires Plugins: elasticpress` header.
+* Changed: Bumped `Requires at least` to 6.5.
+* Changed: Updated composer dependencies.
+
 ## 0.8.3 (12/5/24)
 * Changed: Updated the updater.
 
