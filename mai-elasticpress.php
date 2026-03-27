@@ -572,9 +572,20 @@ final class Mai_Elasticpress {
 	 * @return array
 	 */
 	function add_taxonomies( $taxonomies ) {
-		$taxonomies = array_merge( $taxonomies, array_values( $this->taxonomies ) );
-		$taxonomies = array_unique( $taxonomies );
-		$taxonomies = array_filter( $taxonomies );
+		// EP passes WP_Taxonomy objects. Get existing names to avoid duplicates.
+		$existing = wp_list_pluck( $taxonomies, 'name' );
+
+		foreach ( $this->taxonomies as $name ) {
+			if ( in_array( $name, $existing, true ) ) {
+				continue;
+			}
+
+			$taxonomy = get_taxonomy( $name );
+
+			if ( $taxonomy ) {
+				$taxonomies[] = $taxonomy;
+			}
+		}
 
 		return $taxonomies;
 	}
